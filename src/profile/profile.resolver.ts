@@ -6,6 +6,8 @@ import { ProfileLinkModel } from '../profile-link/profile-link.model.ts';
 import { ProfileLinkService } from '../profile-link/profile-link.service.ts';
 import { ProjectModel } from '../project/project.model.ts';
 import { ProjectService } from '../project/project.service.ts';
+import { SkillModel } from '../skill/skill.model.ts';
+import { SkillService } from '../skill/skill.service.ts';
 import { ProfileModel } from './profile.model.ts';
 import { ProfileService } from './profile.service.ts';
 
@@ -14,6 +16,7 @@ export class ProfileResolver {
   constructor(
     private readonly profileService: ProfileService,
     private readonly profileLinkService: ProfileLinkService,
+    private readonly skillService: SkillService,
     private readonly experienceService: ExperienceService,
     private readonly projectService: ProjectService,
   ) {}
@@ -26,6 +29,11 @@ export class ProfileResolver {
   @ResolveField(() => [ProfileLinkModel], { name: 'links' })
   getLinks(@Parent() profile: ProfileModel): Promise<ProfileLinkModel[]> {
     return this.profileLinkService.findByProfileId(profile.id);
+  }
+
+  @ResolveField(() => [SkillModel], { name: 'skills' })
+  getSkills(@Parent() profile: ProfileModel): Promise<SkillModel[]> {
+    return this.skillService.findByProfileId(profile.id);
   }
 
   @ResolveField(() => [ExperienceModel], { name: 'experience' })

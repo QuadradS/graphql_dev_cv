@@ -23,6 +23,7 @@ type Profile {
   links: [ProfileLink!]!
   name: String!
   projects: [Project!]!
+  skills: [Skill!]!
   slug: String!
 }
 
@@ -41,4 +42,9 @@ type Project {
 
 type Query {
   profile: Profile!
+}
+
+type Skill {
+  id: ID!
+  name: String!
 }
