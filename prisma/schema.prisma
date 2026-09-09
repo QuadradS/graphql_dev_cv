@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Profile {
+  id          String        @id @default(uuid())
+  slug        String        @unique
+  name        String
+  description String
+  links       ProfileLink[]
+  skills      Skill[]
+  experiences Experience[]
+  projects    Project[]
+}
+
+model ProfileLink {
+  id        String  @id @default(uuid())
+  label     String
+  url       String
+  sortOrder Int     @default(0)
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, label])
+  @@index([profileId])
+}
+
+model Skill {
+  id        String  @id @default(uuid())
+  name      String
+  sortOrder Int     @default(0)
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, name])
+  @@index([profileId])
+}
+
+model Experience {
+  id           String    @id @default(uuid())
+  company      String
+  position     String
+  startDate    DateTime
+  endDate      DateTime?
+  achievements String[]
+  profileId    String
+  profile      Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, company, position, startDate])
+  @@index([profileId])
+}
+
+model Project {
+  id          String  @id @default(uuid())
+  name        String
+  url         String
+  description String?
+  sortOrder   Int     @default(0)
+  profileId   String
+  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, name])
+  @@index([profileId])
+}

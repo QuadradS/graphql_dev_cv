@@ -54,3 +54,17 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Prisma: сгенерированный клиент
+/src/generated/prisma
+
+# Кэш инкрементальной сборки TypeScript
+*.tsbuildinfo
+
+# Скиллы AI-агентов, которые создаёт Prisma CLI
+.agents/
+.claude/
+.windsurf/
+.devin/
+.cursor/
+skills-lock.json
