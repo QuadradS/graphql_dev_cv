@@ -1,0 +1,14 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Profile {
+  description: String!
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type Query {
+  profile: Profile!
+}
