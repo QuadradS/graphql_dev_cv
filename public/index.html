@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Developer CV API</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font: 16px/1.6 system-ui, sans-serif;
+        background: #0f1115;
+        color: #e6e8ee;
+      }
+      main { max-width: 34rem; padding: 2rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+      p { color: #9aa3b2; margin: 0 0 1.5rem; }
+      a {
+        display: inline-block;
+        padding: 0.6rem 1.1rem;
+        border-radius: 6px;
+        background: #4f7cff;
+        color: #fff;
+        text-decoration: none;
+      }
+      pre {
+        margin-top: 2rem;
+        padding: 1rem;
+        border-radius: 6px;
+        background: #171a21;
+        overflow-x: auto;
+        color: #c7cedb;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Developer CV API</h1>
+      <p>GraphQL API built with NestJS, Prisma and PostgreSQL.</p>
+      <a href="/graphql">Open GraphiQL</a>
+      <pre>query {
+  profiles {
+    name
+    skills { name }
+    experience { company position }
+    projects { name url }
+  }
+}</pre>
+    </main>
+  </body>
+</html>
