@@ -1,4 +1,4 @@
-import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 
 import { ExperienceModel } from '../experience/experience.model.ts';
 import { ExperienceService } from '../experience/experience.service.ts';
@@ -21,9 +21,18 @@ export class ProfileResolver {
     private readonly projectService: ProjectService,
   ) {}
 
+  @Query(() => [ProfileModel], { name: 'profiles' })
+  getProfiles(): Promise<ProfileModel[]> {
+    return this.profileService.findAll();
+  }
+
   @Query(() => ProfileModel, { name: 'profile' })
-  getProfile(): Promise<ProfileModel> {
-    return this.profileService.findOne();
+  getProfile(
+    @Args('slug', { type: () => String, nullable: true }) slug?: string,
+  ): Promise<ProfileModel> {
+    return slug
+      ? this.profileService.findBySlug(slug)
+      : this.profileService.findOne();
   }
 
   @ResolveField(() => [ProfileLinkModel], { name: 'links' })
