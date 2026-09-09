@@ -1,5 +1,7 @@
 import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 
+import { ExperienceModel } from '../experience/experience.model.ts';
+import { ExperienceService } from '../experience/experience.service.ts';
 import { ProfileLinkModel } from '../profile-link/profile-link.model.ts';
 import { ProfileLinkService } from '../profile-link/profile-link.service.ts';
 import { ProjectModel } from '../project/project.model.ts';
@@ -12,6 +14,7 @@ export class ProfileResolver {
   constructor(
     private readonly profileService: ProfileService,
     private readonly profileLinkService: ProfileLinkService,
+    private readonly experienceService: ExperienceService,
     private readonly projectService: ProjectService,
   ) {}
 
@@ -23,6 +26,11 @@ export class ProfileResolver {
   @ResolveField(() => [ProfileLinkModel], { name: 'links' })
   getLinks(@Parent() profile: ProfileModel): Promise<ProfileLinkModel[]> {
     return this.profileLinkService.findByProfileId(profile.id);
+  }
+
+  @ResolveField(() => [ExperienceModel], { name: 'experience' })
+  getExperience(@Parent() profile: ProfileModel): Promise<ExperienceModel[]> {
+    return this.experienceService.findByProfileId(profile.id);
   }
 
   @ResolveField(() => [ProjectModel], { name: 'projects' })
