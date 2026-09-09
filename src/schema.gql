@@ -5,8 +5,15 @@
 type Profile {
   description: String!
   id: ID!
+  links: [ProfileLink!]!
   name: String!
   slug: String!
+}
+
+type ProfileLink {
+  id: ID!
+  label: String!
+  url: String!
 }
 
 type Query {
